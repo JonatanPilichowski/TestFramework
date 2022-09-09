@@ -6,13 +6,18 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import tests.WebsiteTest;
 
 public class TestBase {
+    private static Logger logger= LoggerFactory.getLogger(TestBase.class);
     private WebDriver driver;
 
     @BeforeAll
     static void setupDriver() {
         WebDriverManager.chromedriver().setup();
+        logger.info("Webdriver started successfully");
     }
 
     public WebDriver getDriver() {
@@ -22,11 +27,14 @@ public class TestBase {
     @BeforeEach
     void setupStart() {
         driver = new ChromeDriver();
+        logger.info("Open browser");
         driver.manage().window().maximize();
+        logger.info("Window maximized");
     }
 
     @AfterEach
     void tearDown() {
         driver.quit();
+        logger.info("Webdriver closed");
     }
 }
