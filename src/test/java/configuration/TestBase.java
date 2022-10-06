@@ -8,15 +8,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import testconfig.BrowserEnvironment;
+import testconfig.EnvironmentProperty;
 import tests.WebsiteTest;
 
 public class TestBase {
     private static Logger logger= LoggerFactory.getLogger(TestBase.class);
-    private WebDriver driver;
+    public static WebDriver driver;
 
+    private static BrowserEnvironment browserEnvironment;
+    private static EnvironmentProperty environmentProperty;
     @BeforeAll
     static void setupDriver() {
-        WebDriverManager.chromedriver().setup();
+        environmentProperty=EnvironmentProperty.getInstance();
+        browserEnvironment = new BrowserEnvironment();
+        driver = browserEnvironment.getDriver();
         logger.info("Webdriver started successfully");
     }
 
@@ -26,10 +32,10 @@ public class TestBase {
 
     @BeforeEach
     void setupStart() {
-        driver = new ChromeDriver();
-        logger.info("Open browser");
-        driver.manage().window().maximize();
-        logger.info("Window maximized");
+//        driver = new ChromeDriver();
+//        logger.info("Open browser");
+//        driver.manage().window().maximize();
+//        logger.info("Window maximized");
     }
 
     @AfterEach
